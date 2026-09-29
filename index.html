@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guitar Chord Diagram Maker</title>
+  <meta name="description" content="Free guitar chord diagram maker. Click the fretboard to build shapes with auto chord naming, audio preview, and PNG/SVG/embed export.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <a href="#" class="logo">
+        <span class="logo-mark">🎸</span>
+        <span>Chord Diagram Maker</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <h1>Guitar Chord Diagram Maker</h1>
+      <p class="subtitle">Click the fretboard to place fingers. Click a dot to label it or remove it.</p>
+
+      <div class="editor-layout">
+        <!-- Fretboard panel -->
+        <div class="fretboard-panel">
+          <input type="text" class="chord-title-input" id="chordTitle" placeholder="Chord Name" maxlength="24" autocomplete="off" spellcheck="false">
+          <div id="fretboardWrap" class="fretboard-wrap">
+            <div id="fretboardHost"></div>
+            <div class="dot-popover" id="dotPopover">
+              <div class="popover-label">Finger</div>
+              <div class="popover-btns" id="popoverFingers"></div>
+              <button class="popover-remove" id="popoverRemove">Remove</button>
+            </div>
+          </div>
+          <p class="barre-hint">Drag across strings on one fret to add a barre</p>
+        </div>
+
+        <!-- Controls panel -->
+        <div class="controls-panel">
+          <div class="ctrl-group">
+            <label class="ctrl-label" for="lookupInput">Chord Lookup</label>
+            <div class="lookup-input-wrap">
+              <input type="text" class="ctrl-input" id="lookupInput" placeholder="Type a chord name, e.g. Am7 or A-7" autocomplete="off" spellcheck="false">
+              <div class="lookup-results" id="lookupResults"></div>
+            </div>
+          </div>
+
+          <div class="suggestion-box">
+            <div class="suggestion-label">Suggested chord names</div>
+            <div class="suggestion-names" id="suggestionNames">—</div>
+          </div>
+
+          <div class="ctrl-group">
+            <label class="ctrl-label" for="tuningSelect">Tuning</label>
+            <select class="ctrl-select" id="tuningSelect">
+              <option value="standard">Standard (EADGBE)</option>
+              <option value="dropD">Drop D (DADGBE)</option>
+              <option value="openG">Open G (DGDGBD)</option>
+              <option value="openD">Open D (DADF#AD)</option>
+              <option value="openE">Open E (EBEG#BE)</option>
+              <option value="dadgad">DADGAD</option>
+              <option value="halfDown">Half Step Down (Eb)</option>
+            </select>
+          </div>
+
+          <div class="ctrl-row">
+            <div class="ctrl-group">
+              <label class="ctrl-label" for="startFretSelect">Starting Fret</label>
+              <select class="ctrl-select" id="startFretSelect">
+                <option value="1">1 (open)</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            </div>
+            <div class="ctrl-group">
+              <label class="ctrl-label" for="numFretsSelect">Number of Frets</label>
+              <select class="ctrl-select" id="numFretsSelect">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="action-bar">
+            <button class="action-btn btn-primary" id="btnPlay" title="Play chord audio">▶ Play</button>
+            <button class="action-btn btn-secondary" id="btnNoteAudio" title="Toggle per-note audio">Note Audio: On</button>
+            <button class="action-btn btn-export" id="btnExportPNG" title="Download as PNG">Export PNG</button>
+            <button class="action-btn btn-export-alt" id="btnExportSVG" title="Download as SVG">Export SVG</button>
+            <button class="action-btn btn-export-alt" id="btnEmbed" title="Get embed code">&lt;/&gt; Embed</button>
+            <button class="action-btn btn-danger" id="btnClear" title="Clear the fretboard">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Embed modal -->
+    <div class="embed-overlay" id="embedOverlay">
+      <div class="embed-modal">
+        <button class="embed-close" id="embedClose">&times;</button>
+        <h3>Embed This Chord Diagram</h3>
+        <p class="embed-desc">Paste this into a blog post, forum, or lesson page.</p>
+        <div class="embed-tab-bar">
+          <button class="embed-tab active" data-embed-type="img">Image Embed</button>
+          <button class="embed-tab" data-embed-type="svg">Inline SVG</button>
+        </div>
+        <textarea class="embed-code" id="embedCode" readonly></textarea>
+        <button class="embed-copy-btn" id="embedCopyBtn">📋 Copy Code</button>
+        <div class="embed-preview">
+          <div class="embed-preview-label">Preview</div>
+          <div id="embedPreview"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/theory.js?v=3"></script>
+  <script src="js/voicings.js?v=3"></script>
+  <script src="js/fretboard.js?v=3"></script>
+  <script src="js/audio.js?v=3"></script>
+  <script src="js/export.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
+</body>
+</html>
